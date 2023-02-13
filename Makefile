@@ -1,31 +1,30 @@
 CC = gcc
 LIB_DIR = ./lib/ #where your libraylib.a file is
 INCL_DIR = ./include/
+EX_DIR = ./example/
+OBJ_DIR = ./object_files/
 
 LINKERS =-L $(LIB_DIR) -lraylib -lopengl32 -lgdi32 -lwinmm
 OUTPUT_FLAGS = -Wall -std=c99 -Wno-missing-braces
 CFLAGS = -static -fdiagnostics-color=always
 
-build_debug: main.o rect.o borders.o Animation.o
-	$(CC) $(CFLAGS) -g -o demo $(OUTPUT_FLAGS) main.o rect.o borders.o Animation.o $(LINKERS)
+build_debug: $(OBJ_DIR)main.o $(OBJ_DIR)Animation.o
+	$(CC) $(CFLAGS) -o $(EX_DIR)demo $(OUTPUT_FLAGS) $(OBJ_DIR)main.o $(OBJ_DIR)Animation.o $(LINKERS)
 
-build_static_lib: Animation.o
-	ar rcs librayanim.a Animation.o
+build_lib: $(OBJ_DIR)Animation.o
+	ar rcs librayanim.a $(OBJ_DIR)Animation.o
 
-main.o: main.c
-	$(CC) -c main.c
+$(OBJ_DIR)main.o: $(EX_DIR)main.c
+	$(CC) -c $(EX_DIR)main.c
+	mv main.o $(OBJ_DIR)
 
-rect.o: rect.c
-	$(CC) -c rect.c
-
-borders.o: borders.c
-	$(CC) -c borders.c
-
-Animation.o: Animation.c
+$(OBJ_DIR)Animation.o: Animation.c
 	$(CC) -c Animation.c
+	mv Animation.o $(OBJ_DIR)
 
 clean: 
-	rm -f demo *.o
+	rm -f ./object_files/*.o
+	rm -f ./example/demo.exe
 
 run: 
-	./demo
+	$(EX_DIR)demo
