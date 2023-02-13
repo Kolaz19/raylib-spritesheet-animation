@@ -1,3 +1,4 @@
+.gitignore
 include
 lib
 object_files
