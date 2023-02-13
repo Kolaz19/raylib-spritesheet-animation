@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "raylib.h": "c",
+        "borders.h": "c",
+        "tmx.h": "c",
+        "raylib-tmx.h": "c",
+        "stdint.h": "c",
+        "stddef.h": "c",
+        "rect.h": "c",
+        "errno.h": "c"
+    }
+}

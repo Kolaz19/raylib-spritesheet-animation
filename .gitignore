@@ -1,7 +1,4 @@
-*
-!.gitignore
-!Animation.c
-!/example/.*
-!Animation.h
-!librayanim.a
-!Makefile
+include
+lib
+object_files
+raylib_cheatsheet_v4.2.pdf
