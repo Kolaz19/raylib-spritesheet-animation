@@ -1,7 +1,7 @@
 *
 !.gitignore
 !Animation.c
-!example
+!/example/.*
 !Animation.h
 !librayanim.a
 !Makefile
