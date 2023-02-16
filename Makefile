@@ -15,11 +15,11 @@ build_lib: $(OBJ_DIR)Animation.o
 	ar rcs librayanim.a $(OBJ_DIR)Animation.o
 
 $(OBJ_DIR)main.o: $(EX_DIR)main.c
-	$(CC) -c $(EX_DIR)main.c
+	$(CC) -g -c $(EX_DIR)main.c
 	mv main.o $(OBJ_DIR)
 
 $(OBJ_DIR)Animation.o: Animation.c
-	$(CC) -c Animation.c
+	$(CC) -g -c Animation.c
 	mv Animation.o $(OBJ_DIR)
 
 clean: 

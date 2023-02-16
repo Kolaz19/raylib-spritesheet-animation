@@ -28,8 +28,8 @@
 
 
 
-const int screenWidth = 1800; //1920*0.8f;
-const int screenHeight = 800; //1080*0.8f;
+const int screenWidth = 1920*0.8f;
+const int screenHeight = 1080*0.8f;
 static Rectangle rect;
 
 #define MAX(a, b) ((a)>(b)? (a) : (b))
@@ -49,50 +49,40 @@ int main(void) {
     //float scaleHeight = 1.0f;
     //float scaleWidth = 1.0f;
 
-    initRect(screenWidth/2, screenHeight/2, 100, 100,&rect);        
+    initRect(100, 100, 100, 100,&rect);        
     RenderTexture2D target = LoadRenderTexture(screenWidth,screenHeight);
 
     SpriteSheet* spriteSheet_box = initSpriteSheet("spriteSheetBox.png",256,288,9,8,&rc);
-    Animation box = initAnimation(spriteSheet_box,1,65,0.1f,PLAY_LOOP,&rc);
+    Animation boxAnimationLoop = initAnimation(spriteSheet_box,1,65,0.02f,PLAY_LOOP,&rc);
+    Animation boxAnimationOnce = initAnimation(spriteSheet_box,1,65,0.01f,PLAY_ONCE,&rc);
+    Animation boxAnimationOnceNoInterrupt = initAnimation(spriteSheet_box,1,65,0.01f,PLAY_ONCE,&rc);
     
 
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (!WindowShouldClose()) 
     {
 
         updatePosition(&rect, 10.0f);
 
         scale = MIN((float)GetScreenWidth()/screenWidth, (float)GetScreenHeight()/screenHeight);
-        //scaleHeight = (float)GetScreenHeight()/screenHeight;
-        //scaleWidth = (float)GetScreenWidth()/screenWidth;
 
-//        if(IsKeyPressed(KEY_F) && !isAnimationRunning(&expl, &rc)) {
-//            startAnimation(&expl, &rc);
-//        }
+        if(IsKeyPressed(KEY_ENTER)) {
+            startAnimation(&boxAnimationOnce,&rc);
+        }
 
-        playAnimation(&box);
+        if(IsKeyPressed(KEY_ENTER) && !isAnimationRunning(&boxAnimationOnceNoInterrupt,&rc)) {
+            startAnimation(&boxAnimationOnceNoInterrupt, &rc);
+        }
 
+        playAnimation(&boxAnimationLoop);
+        playAnimation(&boxAnimationOnce);
+        playAnimation(&boxAnimationOnceNoInterrupt);
 
-
-
-        BeginTextureMode(target);
-            ClearBackground(RAYWHITE);
-            //drawBorders(&borders,BLUE);
-            DrawRectangle(rect.x, rect.y, rect.width, rect.height, GREEN);
-//            if(isAnimationRunning(&expl, &rc)) {
- //               drawCurrentTile(&expl,250,250,200,200,&rc);
-//            }
-            drawCurrentTile(&box,500, 500,50,50,&rc);
-        EndTextureMode();
 
         BeginDrawing();
-            ClearBackground(BLACK);
-
-            DrawTexturePro(target.texture, 
-                        (Rectangle){ 0.0f, 0.0f, (float)target.texture.width, (float)-target.texture.height },
-                        (Rectangle){ (GetScreenWidth() - ((float)screenWidth*scale))*0.5f, (GetScreenHeight() - ((float)screenHeight*scale))*0.5f,(float)screenWidth*scale, (float)screenHeight*scale }, 
-                        (Vector2){ 0, 0 }, 
-                        0.0f, 
-                        WHITE);
+            ClearBackground(RAYWHITE);
+            drawCurrentTile(&boxAnimationLoop,rect.x, rect.y,4*32,4*32,&rc);
+            drawCurrentTile(&boxAnimationOnce,rect.x + 200, rect.y, 4*32, 4*32, &rc);
+            drawCurrentTile(&boxAnimationOnceNoInterrupt,rect.x + 400, rect.y, 4*32, 4*32, &rc);
 
         EndDrawing();
     
@@ -100,7 +90,7 @@ int main(void) {
     }
 
     unloadSpriteSheet(spriteSheet_box);
-    CloseWindow();        // Close window and OpenGL context
+    CloseWindow();       
     return 0;
 }
 

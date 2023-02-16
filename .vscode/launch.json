@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}/example/demo.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/example",
             "environment": [],
             "externalConsole": true
         },

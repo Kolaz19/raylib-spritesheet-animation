@@ -68,7 +68,7 @@ void drawCurrentTile(Animation* animation, int x, int y, int width, int height, 
     dest.y = y;
     dest.width = width,
     dest.height = height;
-    DrawTexturePro(*animation->spriteSheet->texture,source, dest, (Vector2){0,0},0.0f, RAYWHITE);
+    DrawTexturePro(*animation->spriteSheet->texture,source, dest, (Vector2){0.0f,0.0f},0.0f, RAYWHITE);
     *rc = E_SUCCESS;
 }
 
