@@ -23,7 +23,6 @@ int main(void) {
     float scale = 1.0f;
 
     initRect(100, 100, 100, 100,&rect);        
-    RenderTexture2D target = LoadRenderTexture(screenWidth,screenHeight);
 
     //Initialize sprite sheet to use for all our animations
     SpriteSheet* spriteSheet_box = initSpriteSheet("spriteSheetBox.png",256,288,9,8,&rc);
