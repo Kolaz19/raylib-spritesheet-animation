@@ -1,30 +1,5 @@
-/*******************************************************************************************
-*
-*   raylib [core] example - Basic window
-*
-*   Welcome to raylib!
-*
-*   To test examples, just press F6 and execute raylib_compile_execute script
-*   Note that compiled executable is placed in the same folder as .c file
-*
-*   You can find all basic examples on C:\raylib\raylib\examples folder or
-*   raylib official webpage: www.raylib.com
-*
-*   Enjoy using raylib. :)
-*
-*   Example originally created with raylib 1.0, last time updated with raylib 1.0
-
-*   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
-*   BSD-like license that allows static linking with closed source software
-*
-*   Copyright (c) 2013-2022 Ramon Santamaria (@raysan5)
-*
-********************************************************************************************/
-
 #include "../include/raylib.h"
 #include "../Animation.h"
-
-
 
 
 
@@ -44,16 +19,17 @@ int main(void) {
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "Move Rectangle");
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+    SetTargetFPS(60);             
     float scale = 1.0f;
-    //float scaleHeight = 1.0f;
-    //float scaleWidth = 1.0f;
 
     initRect(100, 100, 100, 100,&rect);        
     RenderTexture2D target = LoadRenderTexture(screenWidth,screenHeight);
 
+    //Initialize sprite sheet to use for all our animations
     SpriteSheet* spriteSheet_box = initSpriteSheet("spriteSheetBox.png",256,288,9,8,&rc);
+    //PLAY_LOOP Loop animation back to the start if last frame is reached
     Animation boxAnimationLoop = initAnimation(spriteSheet_box,1,65,0.02f,PLAY_LOOP,&rc);
+    //PLAY_ONCE Start animation after startAnimation() and end when last frame was reached
     Animation boxAnimationOnce = initAnimation(spriteSheet_box,1,65,0.01f,PLAY_ONCE,&rc);
     Animation boxAnimationOnceNoInterrupt = initAnimation(spriteSheet_box,1,65,0.01f,PLAY_ONCE,&rc);
     
@@ -65,14 +41,17 @@ int main(void) {
 
         scale = MIN((float)GetScreenWidth()/screenWidth, (float)GetScreenHeight()/screenHeight);
 
+        // Check if animation should be started -> Restarts animation if it is already running
         if(IsKeyPressed(KEY_ENTER)) {
             startAnimation(&boxAnimationOnce,&rc);
         }
 
+        //Check if animation should be started and animation is not already running -> Can not interrupt animation
         if(IsKeyPressed(KEY_ENTER) && !isAnimationRunning(&boxAnimationOnceNoInterrupt,&rc)) {
             startAnimation(&boxAnimationOnceNoInterrupt, &rc);
         }
 
+        //Advance frames after specific time
         playAnimation(&boxAnimationLoop);
         playAnimation(&boxAnimationOnce);
         playAnimation(&boxAnimationOnceNoInterrupt);
@@ -88,7 +67,6 @@ int main(void) {
     
 
     }
-
     unloadSpriteSheet(spriteSheet_box);
     CloseWindow();       
     return 0;

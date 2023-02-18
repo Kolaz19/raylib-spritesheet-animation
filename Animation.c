@@ -61,7 +61,6 @@ void drawCurrentTile(Animation* animation, int x, int y, int width, int height, 
     } 
 
     int tileYPos = ((int)((animation->currentTile - 1) / spriteSheet->xTileAmount)) * (spriteSheet->pxHeight / spriteSheet->yTileAmount);
-
     Rectangle source = {tileXPos,tileYPos,spriteSheet->pxWidth / spriteSheet->xTileAmount,spriteSheet->pxHeight / spriteSheet->yTileAmount};
     Rectangle dest = source;
     dest.x = x;
@@ -121,7 +120,7 @@ void startAnimation(Animation* animation, int* rc) {
 /// @brief Check if animation with PlayMode PLAY_ONCE
 /// was already started
 /// @return 1 if true, 0 if false
-int isAnimationRunning(Animation* animation, int* rc) {
+int isAnimationRunning(Animation *animation, int *rc) {
     if (animation->playMode == PLAY_LOOP) {
         *rc = E_WRONG_PLAYMODE_TYPE;
         return -1;
@@ -132,5 +131,3 @@ int isAnimationRunning(Animation* animation, int* rc) {
         return 0;
     }
 }
-
-

@@ -8,7 +8,7 @@ LINKERS =-L $(LIB_DIR) -lraylib -lopengl32 -lgdi32 -lwinmm
 OUTPUT_FLAGS = -Wall -std=c99 -Wno-missing-braces
 CFLAGS = -static -fdiagnostics-color=always
 
-build_debug: $(OBJ_DIR)main.o $(OBJ_DIR)Animation.o
+build_example: $(OBJ_DIR)main.o $(OBJ_DIR)Animation.o
 	$(CC) $(CFLAGS) -o $(EX_DIR)demo $(OUTPUT_FLAGS) $(OBJ_DIR)main.o $(OBJ_DIR)Animation.o $(LINKERS)
 
 build_lib: $(OBJ_DIR)Animation.o

@@ -5,7 +5,7 @@
             "label": "make build",
             "command": "make",
             "args": [
-                "build_debug"
+                "build_example"
             ],
             "problemMatcher": [],
             "group": {
